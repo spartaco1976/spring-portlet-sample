@@ -22,7 +22,7 @@
 		<commons-fileupload.version>1.2</commons-fileupload.version>
 		<log4j.version>1.2.14</log4j.version>
 		<junit.version>3.8.1</junit.version>
-		<pluto.version>1.1.4</pluto.version>
+		<pluto.version>1.1.5</pluto.version>
 	</properties>
 
 	<dependencies>
