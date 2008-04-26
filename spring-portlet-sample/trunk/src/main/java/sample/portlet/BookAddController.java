@@ -70,7 +70,7 @@ class BookAddController extends AbstractWizardFormController {
 		Book book = (Book)command;
 		BookValidator bookValidator = (BookValidator)getValidator();
 		switch (page) {
-			case 0: bookValidator.validateAuthor(book, errors);	break;
+			case 0: bookValidator.validateAuthor(book, errors); break;
 			case 1: bookValidator.validateTitle(book, errors); break;
 			case 2: bookValidator.validateDescription(book, errors); break;
 			case 3: bookValidator.validateAvailability(book, errors); break;
@@ -87,7 +87,7 @@ class BookAddController extends AbstractWizardFormController {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	    binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
-	    binder.setAllowedFields(new String[] {"author","title","description","availability","count","webiste","coverPng"});
+	    binder.setAllowedFields(new String[] {"author","title","description","availability","count","website","coverPng"});
     }
 
     @Override
