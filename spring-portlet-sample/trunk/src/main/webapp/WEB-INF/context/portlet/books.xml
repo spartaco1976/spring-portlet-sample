@@ -17,8 +17,12 @@
 -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config/>
 
 	<bean id="portletMultipartResolver" class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver">
 		<property name="maxUploadSize" value="1048576" />
@@ -26,106 +30,22 @@
 
 	<!-- Controllers -->
 
-	<bean id="booksControllerTemplate" abstract="true">
-		<property name="bookService" ref="bookService" />
-	</bean>
-
-	<bean id="booksController" class="sample.portlet.BooksController" parent="booksControllerTemplate"/>
-
-	<bean id="bookIncrementController" class="sample.portlet.BookIncrementController" parent="booksControllerTemplate"/>
-
-    <bean id="bookViewController" class="sample.portlet.BookViewController" parent="booksControllerTemplate"/>
-
-    <bean id="bookEditController" class="sample.portlet.BookEditController" parent="booksControllerTemplate">
-		<property name="sessionForm" value="true"/>
-		<property name="commandName" value="book"/>
-		<property name="commandClass" value="sample.domain.Book"/>
-		<property name="formView" value="bookEdit"/>
-		<property name="validator" ref="bookValidator" />
-    </bean>
-
-    <bean id="bookAddController" class="sample.portlet.BookAddController" parent="booksControllerTemplate">
-		<property name="sessionForm" value="true"/>
-		<property name="commandName" value="book"/>
-		<property name="commandClass" value="sample.domain.Book"/>
-		<property name="pageAttribute" value="page"/>
-		<property name="pages" value="bookAdd,bookAdd,bookAdd,bookAdd,bookAdd,bookAdd,bookAdd"/>
-		<property name="validator" ref="bookValidator" />
-    </bean>
-
-	<bean id="bookDeleteController" class="sample.portlet.BookDeleteController" parent="booksControllerTemplate"/>
-
-	<bean id="bookWebsiteRedirectController" class="sample.portlet.BookWebsiteRedirectController" parent="booksControllerTemplate"/>
+	<bean id="booksController" class="sample.portlet.BooksController"/>
 
 	<bean id="booksHelpController" class="org.springframework.web.portlet.mvc.ParameterizableViewController">
 		<property name="viewName" value="booksHelp"/>
 	</bean>
 
-	<!-- Interceptors -->
-
-	<bean id="parameterMappingInterceptor" class="org.springframework.web.portlet.handler.ParameterMappingInterceptor" />
-
 	<!-- Handler Mappings -->
 
-	<bean id="portletModeParameterHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
-        <property name="order" value="10"/>
-		<property name="interceptors">
-			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
-				<ref bean="parameterMappingInterceptor"/>
-			</list>
-		</property>
-		<property name="portletModeParameterMap">
-			<map>
-				<entry key="view">
-					<map>
-						<entry key="books"><ref bean="booksController"/></entry>
-						<entry key="incrementBook"><ref bean="bookIncrementController"/></entry>
-						<entry key="viewBook"><ref bean="bookViewController"/></entry>
-						<entry key="editBook"><ref bean="bookEditController"/></entry>
-						<entry key="deleteBook"><ref bean="bookDeleteController"/></entry>
-						<entry key="addBook"><ref bean="bookAddController"/></entry>
-					</map>
-				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<!-- The BookWebsiteRedirectController needs it own mapping because
-		 we can't use the ParameterMappingInterceptor if we are going to
-		 do a redirect (since it sets render parameters) -->
-
-	<bean id="portletModeParameterRedirectHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
-        <property name="order" value="15"/>
-		<property name="interceptors">
-			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
-			</list>
-		</property>
-		<property name="portletModeParameterMap">
-			<map>
-				<entry key="view">
-					<map>
-						<entry key="redirectBook"><ref bean="bookWebsiteRedirectController"/></entry>
-					</map>
-				</entry>
-			</map>
-		</property>
+	<bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="order" value="10"/>
 	</bean>
 
 	<bean id="portletModeHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
         <property name="order" value="20"/>
-		<property name="interceptors">
-			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
-			</list>
-		</property>
 		<property name="portletModeMap">
 			<map>
-				<entry key="view"><ref bean="booksController"/></entry>
 				<entry key="help"><ref bean="booksHelpController"/></entry>
 			</map>
 		</property>

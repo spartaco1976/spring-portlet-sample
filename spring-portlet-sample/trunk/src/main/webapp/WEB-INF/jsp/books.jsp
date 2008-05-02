@@ -29,7 +29,7 @@
 			<th></th>
 		</tr>
 
-		<c:forEach items="${model.books}" var="book">
+		<c:forEach items="${books}" var="book">
 			<tr>
 				<td>${book.author}</td>
 				<td><a href="<portlet:renderURL><portlet:param name="action" value="viewBook"/><portlet:param name="book" value="${book.key}"/></portlet:renderURL>">${book.title}</a></td>
