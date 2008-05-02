@@ -31,9 +31,6 @@
 	<!-- Handler Mappings -->
 
 	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="interceptors">
-			<list />
-		</property>
 		<property name="mappings">
 			<props>
 				<prop key="/bookCover">bookDisplayCoverController</prop>

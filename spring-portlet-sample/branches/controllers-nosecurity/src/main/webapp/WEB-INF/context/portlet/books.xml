@@ -71,8 +71,6 @@
         <property name="order" value="10"/>
 		<property name="interceptors">
 			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
 				<ref bean="parameterMappingInterceptor"/>
 			</list>
 		</property>
@@ -98,12 +96,6 @@
 
 	<bean id="portletModeParameterRedirectHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
         <property name="order" value="15"/>
-		<property name="interceptors">
-			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
-			</list>
-		</property>
 		<property name="portletModeParameterMap">
 			<map>
 				<entry key="view">
@@ -117,12 +109,6 @@
 
 	<bean id="portletModeHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
         <property name="order" value="20"/>
-		<property name="interceptors">
-			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
-			</list>
-		</property>
 		<property name="portletModeMap">
 			<map>
 				<entry key="view"><ref bean="booksController"/></entry>

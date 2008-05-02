@@ -33,12 +33,6 @@
 	<!-- Handler Mappings -->
 
 	<bean id="portletModeHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeHandlerMapping">
-		<property name="interceptors">
-			<list>
-				<ref bean="portletSessionContextIntegrationInterceptor"/>
-				<ref bean="portletProcessingInterceptor"/>
-			</list>
-		</property>
 		<property name="portletModeMap">
 			<map>
 				<entry key="view"><ref bean="myBooksController"/></entry>

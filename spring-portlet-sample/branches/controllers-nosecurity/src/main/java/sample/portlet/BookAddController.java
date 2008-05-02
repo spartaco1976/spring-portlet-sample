@@ -70,7 +70,7 @@ class BookAddController extends AbstractWizardFormController {
 		Book book = (Book)command;
 		BookValidator bookValidator = (BookValidator)getValidator();
 		switch (page) {
-			case 0: bookValidator.validateAuthor(book, errors); break;
+			case 0: bookValidator.validateAuthor(book, errors);	break;
 			case 1: bookValidator.validateTitle(book, errors); break;
 			case 2: bookValidator.validateDescription(book, errors); break;
 			case 3: bookValidator.validateAvailability(book, errors); break;
