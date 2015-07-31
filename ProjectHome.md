@@ -1,0 +1,1 @@
+This project consists of sample Java Portlet (JSR 168) applications built using Spring Portlet MVC.  They are intended to illustrate proper use of the framework.  They are also useful for the testing of portals, portlet containers, and the framework itself.
